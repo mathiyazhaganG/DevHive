@@ -1,9 +1,20 @@
-import express from 'express';
+const express = require("express");
+const { authdmin } = require("./middlewares/authadmin");
+
+
+
+
 const app= express();
 const port = 3000;
 
-app.use("/",(req,res)=>{
-    res.send("Hello World");
+app.get("/admin",authdmin, (req, res) => {
+    res.send("Welcome to admin page");
+})
+
+app.use("/",(err,req,res,next)=>{
+    if(err){
+        res.status(500).send("something went wrong")
+    }
 })
 
 app.listen(3000,()=>{
