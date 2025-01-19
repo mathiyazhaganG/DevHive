@@ -1,21 +1,38 @@
 const express = require("express");
-const { authdmin } = require("./middlewares/authadmin");
-
-
-
-
-const app= express();
+const connectDB = require("./config/database.js");
+const app = express();
+const User = require('./models/user.js')
 const port = 3000;
 
-app.get("/admin",authdmin, (req, res) => {
-    res.send("Welcome to admin page");
-})
+app.post("/signup", async (req, res) => {
+    const newUser= new User({
+        firstName: "mathi",
+        lastName: "azhagan",
+        emailId: "mathi@hjh.com",
+        password: "mathi123"
+    })
+    
+    
+    try {
+        await newUser.save();
+        res.send("user created");
 
-app.use("/",(err,req,res,next)=>{
-    if(err){
-        res.status(500).send("something went wrong")
+    } catch (error) {
+        console.err("something went wrong");
+
     }
-})
+});
 
-app.listen(3000,()=>{
-console.log(`server is running in ${port}`)})
+
+connectDB()
+    .then(() => {
+        console.log("Connected to MongoDB");
+        app.listen(3000, () => {
+            console.log(`server is running in ${port}`)
+        })
+
+    })
+    .catch((err) => {
+        console.log("Error connecting to MongoDB");
+    })
+
