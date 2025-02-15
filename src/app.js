@@ -13,9 +13,13 @@ app.use(cookieparser());
 
 const authrouter = require('./Routers/auth.js');
 const profilerouter = require('./Routers/profile.js');
+const connectionRouter = require('./Routers/connections.js');
+const userRouter = require('./Routers/user.js');
 
 app.use('/',profilerouter);
 app.use('/',authrouter);
+app.use('/',connectionRouter);
+app.use('/',userRouter);
 
 
 
