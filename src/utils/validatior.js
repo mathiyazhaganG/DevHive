@@ -17,4 +17,11 @@ const loginValidator=(req)=>{
 	
 }
 
-module.exports=loginValidator;
+const ProfileEditValidator=(req)=>{
+	  const allowed_updates = ["firstName", "lastName", "password", "gender", "age", "skills","photourl"];
+			const isupdated_allowed = Object.keys(req.body).every((k) => allowed_updates.includes(k));
+				return isupdated_allowed;
+			
+}
+
+module.exports={loginValidator,ProfileEditValidator};
