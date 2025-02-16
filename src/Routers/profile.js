@@ -56,17 +56,7 @@ profilerouter.delete("/user", async (req, res) => {
     }
 });
 
-profilerouter.get("/feed", async (req, res) => {
-    const email = req.body.emailId;
-    try {
-        const users = await User.find({ emailId: email });
-        res.status(200).json(users);
-        console.log("User fetched");
-    } catch (error) {
-        console.error("Error fetching users:", error);
-        res.status(500).json({ message: "Something went wrong" });
-    }
-});
+
 
 profilerouter.post("/password/edit", authUser, async (req, res) => {
     try {
